@@ -121,7 +121,7 @@ celerybeat.pid
 
 # Environments
 .env
-.venv
+.venv-py-datascience
 env/
 venv/
 ENV/
