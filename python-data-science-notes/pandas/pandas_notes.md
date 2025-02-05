@@ -53,6 +53,7 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 - **`df.isnull()`**: Returns a boolean DataFrame indicating missing values.
 - **`df.fillna(value)`**: Fills missing values with a specified value or strategy.
 - **`df.dropna(axis, how)`**: Drops rows or columns with missing values.
+- **`df.drop_duplicates(subset=(['column1','column2']))`**: Removes duplicate rows from a DataFrame or duplicate values from a Series.
 
 ---
 
@@ -69,6 +70,7 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 - **`df.agg(func)`**: Aggregates data within groups (e.g., mean, sum, count).
 - **`df.transform(func)`**: Applies a function to each group and returns a DataFrame with the same shape.
 - **`df.apply(func, axis)`**: Applies a function to each row or column.
+- **`df.pivot_table(values, index, columns, margins=True/False, aggfunc)`**: In pandas, pivot tables are another way of performing grouped calculations. `fill_value` replaces missing values with a real value (known as imputation). `margins` is a shortcut for when pivoted by two variables, but also wanted to pivot by each of those variables separately: it gives the row and column totals of the pivot table contents.
 
 ---
 
@@ -91,8 +93,6 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 
 ---
 
-## Other Useful Functions
-
 ### Merging and Concatenation
 - **`pd.merge(left, right, on, how)`**: Merges DataFrames based on a common column.
 - **`pd.concat([df1, df2], axis)`**: Concatenates DataFrames along rows or columns.
@@ -101,7 +101,10 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 - **`df.sort_values(by, axis, ascending)`**: Sorts a DataFrame by one or more columns.
 - **`df.value_counts()`**: Counts the occurrences of unique values in a Series.
 
----
+### Cumulative Statistics
+- **`df['Salary'].cumsum()`**: Calculates the cumulative sum of values in a DataFrame or Series.
+- `df['Salary'].cummin()`**
+- `df['Salary'].cummax()`**
 
 This markdown file covers common arguments, functions, and scenarios for using Pandas effectively in Python.
 
