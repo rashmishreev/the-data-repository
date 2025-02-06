@@ -106,5 +106,6 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 - `df['Salary'].cummin()`**
 - `df['Salary'].cummax()`**
 
+### 
 This markdown file covers common arguments, functions, and scenarios for using Pandas effectively in Python.
 
