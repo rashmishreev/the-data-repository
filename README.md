@@ -1,3 +1,7 @@
-# data-science-python
+# 📊 Data Science Knowledge Base
 
-[Hypothesis Testing](https://github.com/rashmishreev/data-science-python/tree/hypothesis-testing-python/hypothesis-testing)
+A growing repository of data science knowledge, with resources and projects that cover everything from the basics to more advanced techniques. All content here has been gathered and created as part of my continuous learning in data science.
+
+⭐️ Star this repo, and if you'd like to contribute with any suggestions/resources, please open an issue!
+
+
