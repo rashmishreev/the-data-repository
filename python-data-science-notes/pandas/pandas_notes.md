@@ -27,6 +27,7 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 ---
 
 ## `read_csv()` Arguments
+- **`pd.read_csv("filename.csv") | df.to_csv('filename.csv')`**: To read a csv file and to convert a dataframe to a csv file.
 - **`filepath_or_buffer`**: Path to the CSV file or a file-like object.
 - **`sep`**: Delimiter used to separate values (default: `','`).
 - **`header`**: Row number to use as the column names (default: `0`).
@@ -51,6 +52,7 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 
 ### Missing Data
 - **`df.isnull()`**: Returns a boolean DataFrame indicating missing values.
+- **`df.isna() | df.isna().any() | .isna().sum()`**: Returns True/False for NaNs. `any()` is applied along each column (by default) to check if there’s at least one NaN.
 - **`df.fillna(value)`**: Fills missing values with a specified value or strategy.
 - **`df.dropna(axis, how)`**: Drops rows or columns with missing values.
 - **`df.drop_duplicates(subset=(['column1','column2']))`**: Removes duplicate rows from a DataFrame or duplicate values from a Series.
@@ -70,7 +72,12 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 - **`df.agg(func)`**: Aggregates data within groups (e.g., mean, sum, count).
 - **`df.transform(func)`**: Applies a function to each group and returns a DataFrame with the same shape.
 - **`df.apply(func, axis)`**: Applies a function to each row or column.
+
+
+### Pivot Table
 - **`df.pivot_table(values, index, columns, margins=True/False, aggfunc)`**: In pandas, pivot tables are another way of performing grouped calculations. `fill_value` replaces missing values with a real value (known as imputation). `margins` is a shortcut for when pivoted by two variables, but also wanted to pivot by each of those variables separately: it gives the row and column totals of the pivot table contents.
+- **`pivotdf.mean(axis="index/columns")`**: For most DataFrames, setting the axis argument doesn't make any sense, since we'll have different data types in each column. Pivot tables are a special case since every column contains the same data type.
+
 
 ---
 
@@ -82,6 +89,7 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 - **`df.str.join(delimiter)`**: Joins elements of a list into a single string.
 - **`pd.to_datetime(arg)`**: Converts strings to datetime objects.
 - **`pd.to_numeric(arg)`**: Converts strings to numeric values.
+- **`df["column"].dt.month | df["column"].dt.year`**: To extract month and year column from the date column in the dataframe
 
 ---
 
@@ -100,6 +108,10 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 ### Sorting and Counting
 - **`df.sort_values(by, axis, ascending)`**: Sorts a DataFrame by one or more columns.
 - **`df.value_counts()`**: Counts the occurrences of unique values in a Series.
+- **`df.sort_index()`**: The .sort_index() method is used to sort a pandas DataFrame or Series by its index instead of column values.
+- **`df.set_index()`**: It converts one or more columns into the index of the DataFrame.
+- **`df.reset_index()`**: This restores the previous index as a column and creates a default integer index. If you want to discard the old index, use `drop=True`
+
 
 ### Cumulative Statistics
 - **`df['Salary'].cumsum()`**: Calculates the cumulative sum of values in a DataFrame or Series.
