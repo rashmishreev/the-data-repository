@@ -1,15 +1,48 @@
-# Use the command `pip freeze`to list all the installed packages and their versions, and then redirect the output to requirements.txt
-# Generate the requirements.txt file
+# Setup Virtual Environment and Install Dependencies
+
+This guide will walk you through setting up a virtual environment and installing dependencies for your project.
+
+## 1. Generate `requirements.txt`
+
+Use the command `pip freeze` to list all installed packages and their versions, and then redirect the output to a `requirements.txt` file.
+
+```bash
 pip freeze > requirements.txt
 
-# Check the contents of requirements.txt
+
+## 2. Check the Contents of requirements.txt
+
+You can check the contents of the requirements.txt file to ensure it lists all your project dependencies.
+
+```bash
 cat requirements.txt
 
-# Create a new virtual environment
+## 3. Create a New Virtual Environment
+
+Create a new virtual environment for your project. This isolates your project dependencies from your system Python environment.
+
+```bash
 python -m venv .venv-py-datascience
 
-# Activate virtual environment
-> source .venv-py-datascience/bin/activate
+## 4. Activate the Virtual Environment
 
-# Install Dependencies
+Activate the newly created virtual environment. The activation command differs based on your operating system.
+
+On macOS/Linux:
+
+``` bash
+source .venv-py-datascience/bin/activate
+
+On Windows:
+
+```bash
+.venv-py-datascience\Scripts\activate
+
+## 5. Install Dependencies
+
+Once the virtual environment is activated, you can install the dependencies listed in requirements.txt.
+
+```bash
 pip install -r requirements.txt
+
+By following these steps, you'll be able to set up a virtual environment and manage dependencies effectively for your project.
