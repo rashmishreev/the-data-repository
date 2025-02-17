@@ -40,6 +40,55 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 
 ---
 
+## Pandas .merge() and .concat() for joining and concatenating Tables
+
+### .merge()
+- **`pd.merge(left, right, on, how)`**: Merges DataFrames based on a common column.
+#### Arguments
+```python
+pd.merge(
+    left,                 # First DataFrame
+    right,               # Second DataFrame
+    how='inner',         # Type of merge: 'inner', 'outer', 'left', 'right'
+    on=None,            # Column(s) to merge on if same name in both DFs
+    left_on=None,       # Column(s) from left DF to merge on
+    right_on=None,      # Column(s) from right DF to merge on
+    left_index=False,   # Use index from left DF as merge key
+    right_index=False,  # Use index from right DF as merge key
+    sort=False,         # Sort merged DataFrame by join keys
+    suffixes=('_x', '_y'), # Suffixes for overlapping column names
+    indicator=False,    # Add '_merge' column showing merge source
+    validate=None      # Check merge integrity: '1:1', '1:m', 'm:1', 'm:m'
+)
+```
+
+### .concat()
+- **`pd.concat([df1, df2], axis)`**: Concatenates DataFrames along rows or columns.
+  
+To concatenate DataFrames together **vertically** (axis=0)
+
+- **`pd.concat([df1,df2,df3])`**: join 3 tables vertically
+- **`pd.concat([df1,df2,df3], ignore_index=True)`**: If the index contains no valuable information, we can ignore it in the concat method by setting `ignore_index` to `True`. The result is that the index will go from 0 to n-1.
+- **`pd.concat([df1,df2,df3], ignore_index=False, keys=['jan','feb','mar])`**: If we wanted to associate specific keys with each of the pieces of the 3 original tables. We can provide a list of labels to the keys argument. Make sure that ignore_index argument is False, since we can't add a key and ignore the index at the same time. This results in a table with a multi-index, with the label on the first level.
+- **`pd.concat([df1,df2,df3], sort=True)`**: Concatenate tables with different column names. In the results the column which is not there in other tables is NaN.
+- **`pd.concat([df1,df2,df3], join='inner')`**: If we only want the matching columns between tables, we can set the join argument to "inner". Its default value is equal to "outer", which is why concat by default will include all of the columns. Additionally, the sort argument has no effect when join equals "inner". The order of the columns will be the same as the input tables. 
+
+```python
+pd.concat(
+    objs,               # List/dict of pandas objects to concatenate
+    axis=0,            # 0/'index' for row-wise, 1/'columns' for column-wise
+    join='outer',      # How to handle indexes: 'inner' or 'outer'
+    ignore_index=False, # If True, don't use index values from objects
+    keys=None,         # Create hierarchical index with these labels
+    levels=None,       # Specific levels to use for hierarchical index
+    names=None,        # Names for levels in hierarchical index
+    verify_integrity=False, # Check new axis for duplicates
+    sort=False,        # Sort non-concatenation axis if it is not aligned
+    copy=True          # Copy data from objects to new DataFrame
+)
+```
+
+
 ## Essential DataFrame Functions
 
 ### Inspection
@@ -100,10 +149,6 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 - **`df.boxplot()`**: Creates box plots.
 
 ---
-
-### Merging and Concatenation
-- **`pd.merge(left, right, on, how)`**: Merges DataFrames based on a common column.
-- **`pd.concat([df1, df2], axis)`**: Concatenates DataFrames along rows or columns.
 
 ### Sorting and Counting
 - **`df.sort_values(by, axis, ascending)`**: Sorts a DataFrame by one or more columns.
