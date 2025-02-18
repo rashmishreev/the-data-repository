@@ -40,15 +40,14 @@ Pandas official documentation: https://pandas.pydata.org/docs/
 
 ---
 
-## Pandas .merge() and .concat() for joining and concatenating Tables
+## Pandas .merge(), .concat() and .query() for joining, concatenating and selecting data from Tables
 
-### .merge()
-- **`pd.merge(left, right, on, how)`**: Merges DataFrames based on a common column.
+### df.merge()
+- **`df1.merge(df2, on, how)`**: Merges DataFrames based on a common column.
 #### Arguments
 ```python
-pd.merge(
-    left,                 # First DataFrame
-    right,               # Second DataFrame
+df1.merge(
+    df2                 # Other DataFram
     how='inner',         # Type of merge: 'inner', 'outer', 'left', 'right'
     on=None,            # Column(s) to merge on if same name in both DFs
     left_on=None,       # Column(s) from left DF to merge on
@@ -61,6 +60,9 @@ pd.merge(
     validate=None      # Check merge integrity: '1:1', '1:m', 'm:1', 'm:m'
 )
 ```
+#### For ordered or time-series data
+- **`pd.merge_ordered(df1, df2, on, how, fill_method='ffill')`**: Used to merge time-series dataframes. (default is outer join)
+- **`pd.merge_asof(df1, df2, on, suffixes, direction='backward/forward')`**: Unlike an ordered left join, merge_asof() will match on the nearest value columns rather than equal values. This brings up an important point - whatever columns we merge on must be sorted.
 
 ### .concat()
 - **`pd.concat([df1, df2], axis)`**: Concatenates DataFrames along rows or columns.
@@ -88,6 +90,9 @@ pd.concat(
 )
 ```
 
+### .query()
+- **`df.query()`**: The query() method accepts an input string that it will use to select rows to return from the table. Similar to SQL, the string provided to the query function is similar to the portion after the WHERE clause of a SQL statement. 
+- **`gdp_pivot.query('date >= "1991-01-01"')`**
 
 ## Essential DataFrame Functions
 
@@ -126,6 +131,20 @@ pd.concat(
 ### Pivot Table
 - **`df.pivot_table(values, index, columns, margins=True/False, aggfunc)`**: In pandas, pivot tables are another way of performing grouped calculations. `fill_value` replaces missing values with a real value (known as imputation). `margins` is a shortcut for when pivoted by two variables, but also wanted to pivot by each of those variables separately: it gives the row and column totals of the pivot table contents.
 - **`pivotdf.mean(axis="index/columns")`**: For most DataFrames, setting the axis argument doesn't make any sense, since we'll have different data types in each column. Pivot tables are a special case since every column contains the same data type.
+- **`.melt()`**: The `.melt()` method in pandas is used to transform a DataFrame from a wide format to a long format.
+#### **Syntax**
+```python
+DataFrame.melt(id_vars=None, value_vars=None, var_name=None, value_name='value', col_level=None, ignore_index=True)
+
+**Parameters**
+- id_vars (list, optional): Column(s) to keep as identifier variables (not melted).
+- value_vars (list, optional): Column(s) to melt; defaults to all columns except id_vars.
+- var_name (str, optional): Name for the melted variable column; defaults to "variable".
+- value_name (str, optional, default="value"): Name for the melted values column.
+- col_level (int or str, optional): If columns are multi-indexed, specifies which level to melt.
+- ignore_index (bool, default=True): If False, retains the index.
+```
+
 
 
 ---
