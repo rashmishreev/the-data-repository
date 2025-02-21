@@ -13,15 +13,35 @@ Simon Holywells SQL Style Guide: https://www.sqlstyle.guide/
         FROM films
         LIMIT 3;
         ```
+
 ---
-## Order of Execution
+<details>
+<summary>SQL Order of Execution</summary>
 
-SELECT name
-FROM people
-LIMIT 10;
+1. **FROM**      → Identify the source tables
+2. **JOIN**      → Combine tables based on conditions
+3. **WHERE**     → Filter rows before grouping
+4. **GROUP BY**  → Aggregate data into groups
+5. **HAVING**    → Filter groups after aggregation
+6. **SELECT**    → Choose columns or expressions
+7. **DISTINCT**  → Remove duplicate rows
+8. **ORDER BY**  → Sort the result set
+9. **LIMIT / OFFSET** → Restrict number of rows
 
-FROM -> SELECT -> LIMIT
-FROM -> WHERE -> SELECT -> LIMIT
+*Example Query Execution Order*
+
+```sql
+SELECT DISTINCT column_name  -- Step 6 & 7
+FROM table_name              -- Step 1
+JOIN another_table           -- Step 2
+ON table_name.id = another_table.id  
+WHERE condition              -- Step 3
+GROUP BY column_name         -- Step 4
+HAVING condition             -- Step 5
+ORDER BY column_name         -- Step 8
+LIMIT 10 OFFSET 5;           -- Step 9
+```
+</details>
 
 ---
 
@@ -47,11 +67,8 @@ FROM -> WHERE -> SELECT -> LIMIT
 
 ---
 
-
-
-## SQL Comparison Operators
 <details>
-<summary>Operators</summary>
+<summary>SQL Comparison Operators</summary>
 SQL comparison operators are used in the `WHERE` clause to filter records based on conditions.
 
 | Operator | Description | Example |
@@ -74,9 +91,11 @@ SQL comparison operators are used in the `WHERE` clause to filter records based 
 - `%` → Represents zero, one, or multiple characters (`'A%'` → Starts with 'A')  
 - `_` → Represents a single character (`'_a%'` → Second letter is 'a')  
 </details>
+
 ---
 
-## SQL Logical Operators
+<details>
+<summary>SQL Logical Operators</summary>
 
 Logical operators are used in SQL to combine multiple conditions in the `WHERE` clause.
 
@@ -120,10 +139,13 @@ AND (department = 'HR' OR department = 'Finance');
 - Use parentheses () to group conditions and improve readability.
 - Avoid unnecessary OR conditions as they may slow down queries.
 - Prefer IN instead of multiple OR conditions for better performance.
+
+</details>
   
 ---
 
-## SQL Aggregate Functions
+<details>
+<summary>SQL Aggregate Functions</summary>
 
 SQL **Aggregate Functions** perform calculations on multiple rows of data and return a **single** result. These functions are commonly used with the `GROUP BY` clause.
 
@@ -147,6 +169,7 @@ SELECT country, COUNT(*) AS user_count
 FROM users 
 GROUP BY country;
 ```
+</details>
 
 ---
 
