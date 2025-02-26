@@ -120,6 +120,7 @@ pd.concat(
 - **`df.iloc[row, col]`**: Selects rows and columns by integer position.
 - **`df['column']` or `df.column`**: Selects columns by name.
 - **`df.filter()`**: Selects columns by name or regular expression.
+- **`df['salary'].idxmax()`**: .idxmax() finds the **index of the row** where **salary** has the **maximum** value.
 
 ### Grouping
 - **`df.groupby(by)`**: Groups data by one or more columns.

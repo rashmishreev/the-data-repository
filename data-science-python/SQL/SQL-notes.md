@@ -1,22 +1,41 @@
 # Intermediate SQL
 
-## SQL Best practices
+### SQL Best practices
 
 Simon Holywells SQL Style Guide: https://www.sqlstyle.guide/
 
-- Standard practice: Keyword capitalization & New lines
+- **Standard practice:** Keyword capitalization & New lines
 
-- When creating a table, a SQL mistake is including spaces in a field name. To query that table, we'll need to enclose the field name in double-quotes to indicate that, despite being two words, the name refers to just one field.
-  - Example: release year instead of release_year
-        ```SQL
-        SELECT title, "release year", country
-        FROM films
-        LIMIT 3;
-        ```
+- When creating a table, an SQL mistake is including spaces in a field name. To query that table, we'll need to enclose the field name in double-quotes to indicate that, despite being two words, the name refers to just one field.
+  - *Example:* `release year` instead of `release_year`
 
----
+```sql
+SELECT title, "release year", country
+FROM films
+LIMIT 3;
+```
+
+### Common errors in SQL
+
+- Misspelling fields, Incorrect capitalization, Incorrect or missing punctuation 
+- Missing comma's
+- Misspelt Keyword Errors
+
+
+
+## Selecting Data
+
+1. COUNT(): Returns the number of records with a value in a field
+   1. COUNT(field_name): Counts the values in a field | `Note: Includes only non-missing values`
+   2. COUNT(*): Counts records in a field. | `Note: Includes missing-values`
+
+2. DISTINCT: Selects all the unique values from a field
+3. COUNT(DISTINCT field_name): Counts the number of unique values in a field
+
 <details>
+
 <summary>SQL Order of Execution</summary>
+<br> <!-- Adds space between summary and content -->
 
 1. **FROM**      → Identify the source tables
 2. **JOIN**      → Combine tables based on conditions
@@ -43,32 +62,11 @@ LIMIT 10 OFFSET 5;           -- Step 9
 ```
 </details>
 
----
-
-## Debugging SQL
-
-- Common
-  - Misspelling
-  - Incorrect capitalization
-  - Incorrect or missing punctuation 
-- Comma Errors: Missing comma's
-- Misspelt Keyword Errors
-
---- 
-
-## Selecting Data
-
-1. COUNT(): Returns the number of records with a value in a field
-   1. COUNT(field_name): Counts the values in a field | `Note: Includes only non-missing values`
-   2. COUNT(*): Counts records in a field. | `Note: Includes missing-values`
-
-2. DISTINCT: Selects all the unique values from a field
-3. COUNT(DISTINCT field_name): Counts the number of unique values in a field
-
----
 
 <details>
 <summary>SQL Comparison Operators</summary>
+<br> <!-- Adds space between summary and content -->
+
 SQL comparison operators are used in the `WHERE` clause to filter records based on conditions.
 
 | Operator | Description | Example |
@@ -92,10 +90,12 @@ SQL comparison operators are used in the `WHERE` clause to filter records based 
 - `_` → Represents a single character (`'_a%'` → Second letter is 'a')  
 </details>
 
----
+
 
 <details>
 <summary>SQL Logical Operators</summary>
+
+<br> <!-- Adds space between summary and content -->
 
 Logical operators are used in SQL to combine multiple conditions in the `WHERE` clause.
 
@@ -142,10 +142,12 @@ AND (department = 'HR' OR department = 'Finance');
 
 </details>
   
----
+
 
 <details>
 <summary>SQL Aggregate Functions</summary>
+
+<br> <!-- Adds space between summary and content -->
 
 SQL **Aggregate Functions** perform calculations on multiple rows of data and return a **single** result. These functions are commonly used with the `GROUP BY` clause.
 
@@ -198,3 +200,91 @@ ROUND(number, decimal_places)
 - If `N` is **positive**, rounding happens to the **right** of the decimal point.
 - If `N` is **zero**, the number is rounded to the nearest **whole number**.
 - If `N` is **negative**, rounding happens **left** of the decimal point (to tens, hundreds, thousands, etc.).
+
+<details>
+<summary> JOINS </summary>
+
+</br>
+
+1. **INNER JOIN**
+
+Returns only the matching rows between two tables.
+
+```sql
+SELECT a.*, b.*
+FROM tableA a
+INNER JOIN tableB b
+ON a.id = b.id;
+```
+
+2. **LEFT JOIN (LEFT OUTER JOIN)**
+
+Returns all rows from the left table, and matching rows from the right table. If no match, NULLs are returned.
+
+```sql
+SELECT a.*, b.*
+FROM tableA a
+LEFT JOIN tableB b
+ON a.id = b.id;
+```
+3. **RIGHT JOIN (RIGHT OUTER JOIN)**
+
+Returns all rows from the right table, and matching rows from the left table. If no match, NULLs are returned.
+
+```sql
+SELECT a.*, b.*
+FROM tableA a
+RIGHT JOIN tableB b
+ON a.id = b.id;
+```
+
+4. **FULL JOIN (FULL OUTER JOIN)**
+
+Returns all rows from both tables. If no match, NULLs are returned for missing values.
+
+```sql
+SELECT a.*, b.*
+FROM tableA a
+FULL JOIN tableB b
+ON a.id = b.id;
+```
+
+5. **CROSS JOIN**
+
+Returns the Cartesian product of both tables (every row in A joins with every row in B).
+
+```sql
+SELECT a.*, b.*
+FROM tableA a
+CROSS JOIN tableB b;
+```
+
+*Results in (rows in A) × (rows in B) records.*
+
+6. **SELF JOIN**
+
+A table joins with itself.
+
+```sql
+SELECT a.*, b.*
+FROM tableA a
+JOIN tableA b
+ON a.some_column = b.some_column;
+```
+*Used for hierarchical data like employees & managers.*
+
+7. **ANTI JOIN (Using NOT EXISTS or NOT IN)**
+   
+Returns rows from the left table where there is no match in the right table.
+
+```sql
+SELECT a.*
+FROM tableA a
+WHERE NOT EXISTS (
+    SELECT 1 FROM tableB b WHERE a.id = b.id
+);
+```
+*Finds unmatched records.*
+
+
+</details>
