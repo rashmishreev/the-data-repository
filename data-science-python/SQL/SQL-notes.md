@@ -30,7 +30,11 @@ LIMIT 3;
    2. COUNT(*): Counts records in a field. | `Note: Includes missing-values`
 
 2. DISTINCT: Selects all the unique values from a field
-3. COUNT(DISTINCT field_name): Counts the number of unique values in a field
+3. COUNT(DISTINCT field_name): Counts the number of unique values in a field 
+   - COUNT() `does not return the count of distinct values by default`; it counts all non-NULL values. To count distinct values, COUNT(DISTINCT column_name) should be used.
+4. SUM() returns the summation of all non-NULL values.
+5. AVG() does not return the average of distinct values by default. It returns the average of all non-NULL values unless DISTINCT is specified.
+6. MAX() returns the maximum value for the specified column.
 
 <details>
 
@@ -285,6 +289,53 @@ WHERE NOT EXISTS (
 );
 ```
 *Finds unmatched records.*
+</details>
 
+<details>
+<summary>SQL SET OPERATIONS</summary>
+</br>
+
+
+**Difference between `INNER JOIN` and `INTERSECT`**
+
+| Feature         | `INTERSECT`                          | `INNER JOIN`                        |
+|---------------|----------------------------------|--------------------------------|
+| **Purpose**   | Finds common rows between two result sets | Combines matching rows from two tables based on a condition |
+| **Columns**   | Both queries must have the same number of columns and matching data types | Can join tables with different structures using a join condition |
+| **Duplicates** | Removes duplicates (returns distinct values) | Keeps all matching records (including duplicates) |
+| **Condition**  | Implicit (compares all columns in both queries) | Explicit (defined using `ON` clause) |
+| **Use Case**   | Finding identical rows in two queries | Combining related data from multiple tables |
+
+</br>
+
+**Comparison between `Anti-Join` and `EXCEPT`**
+
+| Feature        | Anti-Join                          | EXCEPT                                |
+|---------------|----------------------------------|--------------------------------------|
+| **Purpose**   | Returns rows from one table that do not have a match in another table | Returns rows from the first query that are not in the second query |
+| **Implementation** | Uses `LEFT JOIN` with `WHERE other_table.column IS NULL` | Uses `EXCEPT` keyword between two SELECT statements |
+| **Condition**  | Explicit condition in `ON` clause | Implicitly compares all columns in both queries |
+| **Columns**    | Can have different structures and columns | Both queries must have the same number of columns and matching data types |
+| **Duplicates** | Keeps all non-matching records | Removes duplicates (returns distinct values) |
+| **Use Case**   | Finding records in one table that have no match in another | Finding distinct rows in one query that are missing in another |
+
+</br>
+
+*Example of Anti-Join (Using LEFT JOIN)*
+```sql
+SELECT t1.*
+FROM table1 t1
+LEFT JOIN table2 t2 ON t1.id = t2.id
+WHERE t2.id IS NULL;
+```
+💡 Finds records in table1 that do not exist in table2.
+
+*Example of EXCEPT*
+```sql
+SELECT id FROM table1
+EXCEPT
+SELECT id FROM table2;
+```
+💡 Finds unique IDs in table1 that do not exist in table2 (removes duplicates).
 
 </details>
