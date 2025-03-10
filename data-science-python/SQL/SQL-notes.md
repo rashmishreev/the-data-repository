@@ -289,6 +289,31 @@ WHERE NOT EXISTS (
 );
 ```
 *Finds unmatched records.*
+
+8. SEMI-JOIN
+   
+Returns rows from the left table where a match exists in the right table, but it does not return columns from the right table.
+
+- Similar to an INNER JOIN, but only returns columns from the left table.
+- Often used in EXISTS or IN subqueries.
+- Helps improve query performance when you only need to check for existence.
+
+Example 1: Using `EXISTS` (Preferred Way)
+```sql
+SELECT customer_id, customer_name 
+FROM customers c
+WHERE EXISTS (
+    SELECT 1 
+    FROM orders o
+    WHERE o.customer_id = c.customer_id
+);
+```
+Example 2: Using `IN`
+```sql
+SELECT customer_id, customer_name 
+FROM customers
+WHERE customer_id IN (SELECT customer_id FROM orders);
+```
 </details>
 
 <details>
