@@ -280,6 +280,7 @@ ON a.some_column = b.some_column;
 7. **ANTI JOIN (Using NOT EXISTS or NOT IN)**
    
 Returns rows from the left table where there is no match in the right table.
+-  It can be particularly useful for identifying whether an incorrect number of records appears in a join.
 
 ```sql
 SELECT a.*
@@ -363,4 +364,14 @@ SELECT id FROM table2;
 ```
 💡 Finds unique IDs in table1 that do not exist in table2 (removes duplicates).
 
+</details>
+
+<details>
+<summary>SQL Subqueries</summary>
+</br>
+
+1. Subquery using `ANTI-JOIN` & `SEMI-JOIN`
+2. Subquery in `WHERE` clause
+3. Subquery in `SELECT` clause
+4. Subquery in `FROM` clause
 </details>
