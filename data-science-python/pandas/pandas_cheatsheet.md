@@ -183,6 +183,32 @@ DataFrame.melt(id_vars=None, value_vars=None, var_name=None, value_name='value',
 - `df['Salary'].cummin()`**
 - `df['Salary'].cummax()`**
 
+## Pandas String Matching
+
+| Method | What it does | Example |
+|:---|:---|:---|
+| `.str.lower()` | Converts all text to lowercase | `"HELLO"` → `"hello"` |
+| `.str.upper()` | Converts all text to uppercase | `"hello"` → `"HELLO"` |
+| `.str.title()` | Capitalizes first letter of each word | `"hello world"` → `"Hello World"` |
+| `.str.strip()` | Removes spaces from start and end | `"  hello "` → `"hello"` |
+| `.str.lstrip()` | Removes spaces from start only | `"  hello "` → `"hello "` |
+| `.str.rstrip()` | Removes spaces from end only | `"  hello "` → `"  hello"` |
+| `.str.contains('pattern')` | Checks if string contains pattern (returns True/False) | `"hello world"` contains `"hello"` → `True` |
+| `.str.replace('a', 'b')` | Replace text | `"cat"` → `"cbt"` |
+| `.str.startswith('pattern')` | Check if string starts with pattern | `"hello"` starts with `"he"` → `True` |
+| `.str.endswith('pattern')` | Check if string ends with pattern | `"hello"` ends with `"lo"` → `True` |
+| `.str.len()` | Gives the length of each string | `"hello"` → `5` |
+| `.str.split(' ')` | Splits strings into a list based on separator | `"a b c"` → `["a", "b", "c"]` |
+| `.str.get(i)` | Get the ith element from a split string/list | After split: get first word, second word, etc. |
+| `.str.extract('regex')` | Extract groups based on a regex pattern | Pull specific parts of the text |
+| `.str.find('pattern')` | Finds position of pattern (-1 if not found) | `"hello".find("e")` → `1` |
+| `.str.isnumeric()` | Checks if string is numeric | `"123"` → `True` |
+| `.str.isalpha()` | Checks if string has only letters | `"abc"` → `True` |
+| `.str.zfill(width)` | Pads string on the left with zeros | `"42".zfill(5)` → `"00042"` |
+
+
 ### 
 This markdown file covers common arguments, functions, and scenarios for using Pandas effectively in Python.
+
+
 
